@@ -90,6 +90,26 @@ describe Virtus::Multiparams do
     ).date).to be_nil
   end
 
+  it "ignores Dates with empty attributes" do
+    expect(Example.new(
+      "date(1i)" => "",
+      "date(2i)" => "5",
+      "date(3i)" => "7",
+    ).date).to be_nil
+
+    expect(Example.new(
+      "date(1i)" => "2015",
+      "date(2i)" => "",
+      "date(3i)" => "7",
+    ).date).to be_nil
+
+    expect(Example.new(
+      "date(1i)" => "2015",
+      "date(2i)" => "5",
+      "date(3i)" => "",
+    ).date).to be_nil
+  end
+
   it "correctly coerces DateTimes" do
     expect(Example.new(
       "datetime(1i)" => "2015",
@@ -124,6 +144,35 @@ describe Virtus::Multiparams do
       "datetime(1i)" => "2015",
       "datetime(2i)" => "5",
       # "datetime(3i)" => "7",
+      "datetime(4i)" => "14",
+      "datetime(5i)" => "32",
+      "datetime(6i)" => "47",
+    ).datetime).to be_nil
+  end
+
+  it "ignores DateTimes with empty date attributes" do
+    expect(Example.new(
+      "datetime(1i)" => "",
+      "datetime(2i)" => "5",
+      "datetime(3i)" => "7",
+      "datetime(4i)" => "14",
+      "datetime(5i)" => "32",
+      "datetime(6i)" => "47",
+    ).datetime).to be_nil
+
+    expect(Example.new(
+      "datetime(1i)" => "2015",
+      "datetime(2i)" => "",
+      "datetime(3i)" => "7",
+      "datetime(4i)" => "14",
+      "datetime(5i)" => "32",
+      "datetime(6i)" => "47",
+    ).datetime).to be_nil
+
+    expect(Example.new(
+      "datetime(1i)" => "2015",
+      "datetime(2i)" => "5",
+      "datetime(3i)" => "",
       "datetime(4i)" => "14",
       "datetime(5i)" => "32",
       "datetime(6i)" => "47",
@@ -199,6 +248,35 @@ describe Virtus::Multiparams do
     ).time).to be_nil
   end
 
+  it "ignores Times with empty date attributes" do
+    expect(Example.new(
+      "time(1i)" => "",
+      "time(2i)" => "5",
+      "time(3i)" => "7",
+      "time(4i)" => "14",
+      "time(5i)" => "32",
+      "time(6i)" => "47",
+    ).time).to be_nil
+
+    expect(Example.new(
+      "time(1i)" => "2015",
+      "time(2i)" => "",
+      "time(3i)" => "7",
+      "time(4i)" => "14",
+      "time(5i)" => "32",
+      "time(6i)" => "47",
+    ).time).to be_nil
+
+    expect(Example.new(
+      "time(1i)" => "2015",
+      "time(2i)" => "5",
+      "time(3i)" => "",
+      "time(4i)" => "14",
+      "time(5i)" => "32",
+      "time(6i)" => "47",
+    ).time).to be_nil
+  end
+
   it "ignores Times with zero date attributes" do
     expect(Example.new(
       "time(1i)" => "0",
@@ -227,5 +305,4 @@ describe Virtus::Multiparams do
       "time(6i)" => "47",
     ).time).to be_nil
   end
-
 end
