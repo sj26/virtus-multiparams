@@ -39,7 +39,11 @@ module Virtus
                 # Basic convesion is enough, Virtus invokes `to_date[time]`
                 # Also, lololol timezones
                 if array.length >= 3 && array[0...3].none?(&:nil?) && array[0...3].none?(&:zero?)
-                  Time.new(*array[0...6])
+                  if defined?(Rails)
+                    Time.zone.local(*array[0...6])
+                  else
+                    Time.new(*array[0...6])
+                  end
                 end
               else
                 array
